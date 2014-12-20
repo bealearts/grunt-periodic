@@ -50,10 +50,17 @@ A list of tasks to execute. Tasks may be specified according to the grunt [Task 
 ```js
 once: {
   // Run 'npm-install' once a day - to keep deps up to date
-  install: {
+  update: {
     options: {
-        period: "day"
-        tasks: ["npm-install"]
+      period: "day",
+      tasks: ["npm-install"]
+    }
+  },
+  // Clear out test DB logs once a week
+  clear-logs: {
+    options: {
+      period: "week",
+      tasks: ["clean:logs"]
     }
   }
 }
