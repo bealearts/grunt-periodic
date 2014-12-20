@@ -57,7 +57,7 @@ once: {
     }
   },
   // Clear out test DB logs once a week
-  clear-logs: {
+  "clear-logs": {
     options: {
       period: "week",
       tasks: ["clean:logs"]
