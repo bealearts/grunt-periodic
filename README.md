@@ -33,8 +33,8 @@ Specifies the time period, in which the tasks should be executes once. e.g. "hou
 
 One of: "build", "minute", "hour", "day", "week", "month", "year", "checkout"
 
-"build" runs once a build. This is the equivalent of not using the grunt-once task.
-"checkout" runs only once for the project. It will not be run again, unless a clean checkout of the project is made.
+* "build" runs once a build. This is the equivalent of not using the grunt-once task.
+* "checkout" runs only once for the project. It will not be run again, unless a clean checkout of the project is made.
 
 Note that this is only the maximum time period. If the build is not run, the tasks will not be executed.
 
@@ -49,9 +49,10 @@ A list of tasks to execute. Tasks may be specified according to the grunt [Task 
 
 ```js
 once: {
+  // Run 'npm-install' once a day - to keep deps up to date
   install: {
     options: {
-        period: "checkout"
+        period: "day"
         tasks: ["npm-install"]
     }
   }
