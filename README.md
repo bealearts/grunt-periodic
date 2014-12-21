@@ -23,11 +23,10 @@ grunt.loadNpmTasks('grunt-once');
 _Run this task with the `grunt once` command._
 
 Task targets and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
-### Options
+### Config
 
 #### period
 Type: `String`
-Default: "build"
 
 Specifies the time period, in which the tasks should be executes once. e.g. "hour" The tasks will be executed a maximum of once every hour.
 
@@ -40,7 +39,6 @@ Note that this is only the maximum time period. If the build is not run, the tas
 
 #### tasks
 Type: `Array`
-Default: []
 
 A list of tasks to execute. Tasks may be specified according to the grunt [Task Alias](http://gruntjs.com/creating-tasks#alias-tasks) guide.
 
@@ -51,17 +49,13 @@ A list of tasks to execute. Tasks may be specified according to the grunt [Task 
 once: {
   // Run 'npm-install' once a day - to keep deps up to date
   update: {
-    options: {
-      period: "day",
-      tasks: ["npm-install"]
-    }
+    period: "day",
+    tasks: ["npm-install"]
   },
   // Clear out test DB logs once a week
   "clear-logs": {
-    options: {
-      period: "week",
-      tasks: ["clean:logs"]
-    }
+    period: "week",
+    tasks: ["clean:logs"]
   }
 }
 ```

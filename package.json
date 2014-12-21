@@ -1,0 +1,43 @@
+{
+  "name": "grunt-once",
+  "description": "Grunt task to run other tasks once a given time period - e.g. once a day, once an hour etc.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bealearts/grunt-once",
+  "author": {
+    "name": "David Beale",
+    "url": "http://bealearts.co.uk/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bealearts/grunt-once.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bealearts/grunt-once/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/bealearts/grunt-once/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/grunt-cli/bin/grunt test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-cli": "~0.1.13"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
