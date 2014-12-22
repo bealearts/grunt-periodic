@@ -1,5 +1,5 @@
-grunt-once
-==========
+grunt-periodic
+==============
 
 Grunt task to run other tasks once a given time period - e.g. once a day, once an hour etc
 
@@ -9,20 +9,20 @@ Useful for tasks which do not need to run every build, such as one time generati
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-once --save-dev
+npm install grunt-periodic --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-once');
+grunt.loadNpmTasks('grunt-periodic');
 ```
 
 *This plugin was designed to work with Grunt 0.4.x. If you're still using grunt v0.3.x it's strongly recommended that [you upgrade](http://gruntjs.com/upgrading-from-0.3-to-0.4), but in case you can't please use [v0.3.2](https://github.com/gruntjs/grunt-contrib-less/tree/grunt-0.3-stable).*
 
 
-## Once task
-_Run this task with the `grunt once` command._
+## periodic task
+_Run this task with the `grunt periodic` command._
 
 Task targets and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 ### Config
@@ -48,7 +48,7 @@ A list of tasks to execute. Tasks may be specified according to the grunt [Task 
 ### Usage Examples
 
 ```js
-once: {
+periodic: {
   // Run 'npm-install' once a day - to keep deps up to date
   update: {
     period: "day",

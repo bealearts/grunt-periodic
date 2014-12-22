@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    once: {
+    periodic: {
         build: {
             period: 'build',
             tasks: ['']
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.registerTask('test', ['jshint', 'clean', 'once', 'nodeunit']);
+  grunt.registerTask('test', ['jshint', 'clean', 'periodic', 'nodeunit']);
 
   grunt.registerTask('default', ['test']);
 

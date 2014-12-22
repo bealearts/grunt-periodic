@@ -4,7 +4,7 @@
 
 module.exports = function register(grunt)
 {
-    grunt.registerMultiTask('once', 'Task to run other tasks once a given time period', function once(){
+    grunt.registerMultiTask('periodic', 'Task to run other tasks once a given time period', function periodic(){
         
         //var period = this.data.period;
         var tasks = this.data.tasks;
@@ -24,7 +24,7 @@ module.exports = function register(grunt)
     
     
     
-    var taskDataFolder = './.grunt/grunt-once/';
+    var taskDataFolder = './.grunt/grunt-periodic/';
     
     
     function readLastRun(target)
