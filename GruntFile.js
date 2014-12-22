@@ -31,6 +31,10 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     once: {
+        build: {
+            period: 'build',
+            tasks: ['']
+        }
     },
 
     // Unit tests.

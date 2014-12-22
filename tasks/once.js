@@ -6,18 +6,49 @@ module.exports = function register(grunt)
 {
     grunt.registerMultiTask('once', 'Task to run other tasks once a given time period', function once(){
         
-        grunt.config.requires('period', 'tasks');
+        //var period = this.data.period;
+        var tasks = this.data.tasks;
         
-        var period = grunt.config.get('period');
-        var tasks = grunt.config.get('tasks');
-        
-        if (!Object.isArray(tasks))
+        if (!Array.isArray(tasks))
         {
             tasks = [tasks];
         }
         
+        var lastRun = readLastRun(this.target);
+        grunt.log(lastRun);
+        // If outside period, run the tasks
         
-        
+        saveLastRun(this.target);
         
     });
+    
+    
+    
+    var taskDataFolder = './.grunt/grunt-once/';
+    
+    
+    function readLastRun(target)
+    {
+        return grunt.file.read(taskDataFolder + target);
+    }
+    
+    
+    // function checkOutsidePeriod()
+    // {
+        
+    // }
+    
+    
+    // function runTasks()
+    // {
+        
+    // }
+    
+    
+    function saveLastRun(target)
+    {
+        var now = new Date();
+        grunt.file.write(taskDataFolder + target, now.toISOString());
+    }
+
 };
