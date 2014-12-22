@@ -1,4 +1,4 @@
-grunt-periodic [![Build Status](https://travis-ci.org/bealearts/grunt-periodic.svg)](https://travis-ci.org/bealearts/grunt-periodic)
+grunt-periodic [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Build Status](https://travis-ci.org/bealearts/grunt-periodic.svg)](https://travis-ci.org/bealearts/grunt-periodic)
 ==============
 
 Grunt task to run other tasks once a given time period - e.g. once a day, once an hour etc
