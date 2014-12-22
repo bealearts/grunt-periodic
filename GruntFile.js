@@ -32,8 +32,32 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     periodic: {
         build: {
-            period: 'build',
-            tasks: ['']
+          when: 'build',
+          tasks: ['']
+        },
+        hourly: {
+          when: 'hourly',
+          tasks: ['']
+        },
+        dayly: {
+          when: 'dayly',
+          tasks: ['']
+        },
+        weekly: {
+          when: 'weekly',
+          tasks: ['']
+        },
+        monthly: {
+          when: 'monthly',
+          tasks: ['']
+        }, 
+        yearly: {
+          when: 'yearly',
+          tasks: ['']
+        },                                               
+        checkout: {
+          when: 'checkout',
+          tasks: ['']
         }
     },
 

@@ -27,12 +27,12 @@ _Run this task with the `grunt periodic` command._
 Task targets and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 ### Config
 
-#### period
+#### when
 Type: `String`
 
-Specifies the time period, in which the tasks should be executes once. e.g. "hour" The tasks will be executed a maximum of once every hour.
+Specifies when to run the tasks e.g. "hourly" The tasks will be executed a maximum of once every hour.
 
-One of: "build", "minute", "hour", "day", "week", "month", "year", "checkout"
+One of: "build", "hourly", "daily", "weekly", "monthly", "yearly", "checkout"
 
 * "build" runs once a build. This is the equivalent of not using the grunt-once task.
 * "checkout" runs only once for the project. It will not be run again, unless a clean checkout of the project is made.
@@ -51,12 +51,12 @@ A list of tasks to execute. Tasks may be specified according to the grunt [Task 
 periodic: {
   // Run 'npm-install' once a day - to keep deps up to date
   update: {
-    period: "day",
+    when: "daily",
     tasks: ["npm-install"]
   },
   // Clear out test DB logs once a week
   "clear-logs": {
-    period: "week",
+    when: "weekly",
     tasks: ["clean:logs"]
   }
 }

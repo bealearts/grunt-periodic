@@ -1,12 +1,25 @@
 
 'use strict';
 
+var moment = require('moment');
+
+var taskDataFolder = './.grunt/grunt-periodic/';
+
+var mesurements = {
+    'build': 'seconds',
+    'hourly': 'hours',
+    'daily': 'days',
+    'weekly': 'weeks',
+    'monthly': 'months',
+    'yearly': 'years'
+};
+
 
 module.exports = function register(grunt)
 {
     grunt.registerMultiTask('periodic', 'Task to run other tasks once a given time period', function periodic(){
         
-        //var period = this.data.period;
+        var when = this.data.when;
         var tasks = this.data.tasks;
         
         if (!Array.isArray(tasks))
@@ -15,40 +28,75 @@ module.exports = function register(grunt)
         }
         
         var lastRun = readLastRun(this.target);
-        grunt.log(lastRun);
-        // If outside period, run the tasks
+
+        if (lastRun)
+        {
+            grunt.log.writeln('Last ran ' + moment(lastRun).fromNow());
+        }
+        else
+        {    
+            grunt.log.writeln('No last run time found');
+        }
         
-        saveLastRun(this.target);
+        if (!lastRun || checkOutsidePeriod(lastRun, when))
+        {
+            runTasks(tasks);
+
+            saveLastRun(this.target);
+        }
+        else
+        {
+            grunt.log.writeln('Period [' + when + '] not reached, skipping tasks: ' + tasks.toString());
+        }
         
     });
     
     
     
-    var taskDataFolder = './.grunt/grunt-periodic/';
-    
-    
     function readLastRun(target)
     {
-        return grunt.file.read(taskDataFolder + target);
+        var path = taskDataFolder + target;
+
+        if (grunt.file.exists(path))
+        {
+            return grunt.file.read(path);
+        }
+        else
+        {
+            return null;
+        }
     }
     
     
-    // function checkOutsidePeriod()
-    // {
-        
-    // }
+    function checkOutsidePeriod(lastRun, when)
+    {
+        if (when === 'checkout')
+        {
+            return false;
+        }
+
+        var diff = moment().diff(moment(lastRun), getMeasurement(when));
+
+        return (diff !== 0);
+    }
     
     
-    // function runTasks()
-    // {
-        
-    // }
+    function runTasks(tasks)
+    {
+        grunt.log.writeln('Running tasks: ' + tasks.toString());
+    }
     
     
     function saveLastRun(target)
     {
         var now = new Date();
         grunt.file.write(taskDataFolder + target, now.toISOString());
+    }
+
+
+    function getMeasurement(when)
+    {
+        return mesurements[when];
     }
 
 };
