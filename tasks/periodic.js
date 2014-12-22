@@ -6,7 +6,7 @@ var moment = require('moment');
 var taskDataFolder = './.grunt/grunt-periodic/';
 
 var mesurements = {
-    'build': 'seconds',
+    'build': 'milliseconds',
     'hourly': 'hours',
     'daily': 'days',
     'weekly': 'weeks',
@@ -27,6 +27,23 @@ module.exports = function register(grunt)
             tasks = [tasks];
         }
         
+
+        if (!when)
+        {
+            grunt.fail.fatal('periodic property "when" is required');
+        }
+        else if (when !== 'checkout' && !mesurements.hasOwnProperty(when))
+        {
+            grunt.fail.fatal(when + ' is not a valid value for periodic property "when"');
+        }
+
+
+        if (tasks.length === 0)
+        {
+            grunt.fail.fatal('No tasks specified in periodic property "tasks"');
+        }
+
+
         var lastRun = readLastRun(this.target);
 
         if (lastRun)
@@ -84,6 +101,8 @@ module.exports = function register(grunt)
     function runTasks(tasks)
     {
         grunt.log.writeln('Running tasks: ' + tasks.toString());
+
+        grunt.task.run(tasks);
     }
     
     

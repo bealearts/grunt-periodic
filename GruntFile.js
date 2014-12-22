@@ -26,38 +26,38 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      tests: ['.grunt', 'temp']
     },
 
     // Configuration to be run (and then tested).
     periodic: {
         build: {
           when: 'build',
-          tasks: ['']
+          tasks: ['TestTask:build']
         },
         hourly: {
           when: 'hourly',
-          tasks: ['']
+          tasks: ['TestTask:hourly']
         },
-        dayly: {
-          when: 'dayly',
-          tasks: ['']
+        daily: {
+          when: 'daily',
+          tasks: ['TestTask:daily']
         },
         weekly: {
           when: 'weekly',
-          tasks: ['']
+          tasks: ['TestTask:weekly']
         },
         monthly: {
           when: 'monthly',
-          tasks: ['']
+          tasks: ['TestTask:monthly']
         }, 
         yearly: {
           when: 'yearly',
-          tasks: ['']
+          tasks: ['TestTask:yearly']
         },                                               
         checkout: {
           when: 'checkout',
-          tasks: ['']
+          tasks: ['TestTask:checkout']
         }
     },
 
@@ -76,8 +76,27 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.registerTask('test', ['jshint', 'clean', 'periodic', 'nodeunit']);
+  // run period tasks twice to test results
+  grunt.registerTask('test', ['jshint', 'clean', 'periodic', 'periodic', 'nodeunit']);
 
   grunt.registerTask('default', ['test']);
+
+
+  grunt.registerTask('TestTask', 'Test Task', function(target){
+
+    var count = 1;
+    var path = './temp/' + target;
+
+    if (grunt.file.exists(path))
+    {
+      count = grunt.file.read(path);
+      count++;
+    }
+
+    grunt.log.writeln('Test Task count: ' + count);
+
+    grunt.file.write(path, count);
+
+  });
 
 };
