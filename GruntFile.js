@@ -36,34 +36,41 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     periodic: {
-        build: {
-          when: 'build',
-          tasks: ['TestTask:build']
-        },
-        hourly: {
-          when: 'hourly',
-          tasks: ['TestTask:hourly']
-        },
-        daily: {
-          when: 'daily',
-          tasks: ['TestTask:daily']
-        },
-        weekly: {
-          when: 'weekly',
-          tasks: ['TestTask:weekly']
-        },
-        monthly: {
-          when: 'monthly',
-          tasks: ['TestTask:monthly']
-        }, 
-        yearly: {
-          when: 'yearly',
-          tasks: ['TestTask:yearly']
-        },                                               
-        checkout: {
-          when: 'checkout',
-          tasks: ['TestTask:checkout']
+      build: {
+        when: 'build',
+        tasks: ['TestTask:build']
+      },
+      hourly: {
+        when: 'hourly',
+        tasks: ['TestTask:hourly']
+      },
+      daily: {
+        when: 'daily',
+        tasks: ['TestTask:daily']
+      },
+      weekly: {
+        when: 'weekly',
+        tasks: ['TestTask:weekly']
+      },
+      weeklyNotFirst: {
+        when: 'weekly',
+        tasks: ['TestTask:weeklyNotFirst'],
+        options: {
+          runFirstTime: false
         }
+      },      
+      monthly: {
+        when: 'monthly',
+        tasks: ['TestTask:monthly']
+      }, 
+      yearly: {
+        when: 'yearly',
+        tasks: ['TestTask:yearly']
+      },                                               
+      checkout: {
+        when: 'checkout',
+        tasks: ['TestTask:checkout']
+      }
     },
 
     // Unit tests.

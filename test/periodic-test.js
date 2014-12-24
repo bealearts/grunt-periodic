@@ -51,6 +51,13 @@ exports.periodic = {
 		test.done();
 	},
 
+	weeklyNotFirst: function(test) {
+
+		test.equal(readCount('weeklyNotFirst'), 3);
+
+		test.done();
+	},
+
 	monthly: function(test) {
 
 		test.equal(readCount('monthly'), 3);

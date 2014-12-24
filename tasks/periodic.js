@@ -44,6 +44,11 @@ module.exports = function register(grunt)
         }
 
 
+        var options = this.options({
+            runFirstTime: true
+        });
+
+
         var lastRun = readLastRun(this.target);
 
         if (lastRun)
@@ -57,7 +62,10 @@ module.exports = function register(grunt)
         
         if (!lastRun || checkOutsidePeriod(lastRun, when))
         {
-            runTasks(tasks);
+            if (lastRun || options.runFirstTime)
+            {
+                runTasks(tasks);
+            }
 
             saveLastRun(this.target);
         }

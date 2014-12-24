@@ -1,7 +1,7 @@
 {
   "name": "grunt-periodic",
   "description": "Grunt task to run other tasks once a given time period - e.g. once a day, once an hour etc.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/bealearts/grunt-periodic",
   "author": {
     "name": "David Beale",
@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "grunt": "^0.4.0",
-    "grunt-cli": "~0.1.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-nodeunit": "^0.4.1",

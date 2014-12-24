@@ -25,6 +25,7 @@ grunt.loadNpmTasks('grunt-periodic');
 _Run this task with the `grunt periodic` command._
 
 Task targets and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+
 ### Config
 
 #### when
@@ -43,6 +44,16 @@ Note that this is only the maximum time period. If the build is not run, the tas
 Type: `Array`
 
 A list of tasks to execute. Tasks may be specified according to the grunt [Task Alias](http://gruntjs.com/creating-tasks#alias-tasks) guide.
+
+### Options
+
+#### runFirstTime
+Type: `Boolean`
+Default: true
+
+Whether to run the tasks during the first build of the project.
+
+Note if set to `false` with the option of `checkout` for `when` property, then no tasks will be run. 
 
 
 ### Usage Examples
