@@ -1,7 +1,12 @@
 
 'use strict';
 
+var sinon = require('sinon');
+
+
 module.exports = function(grunt) {
+
+  var clock;
 
   grunt.initConfig({
     jshint: {
@@ -63,7 +68,7 @@ module.exports = function(grunt) {
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*.js']
+      tests: ['test/periodic-test.js']
     }
   });
 
@@ -77,10 +82,37 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   // run period tasks twice to test results
-  grunt.registerTask('test', ['jshint', 'clean', 'periodic', 'periodic', 'nodeunit']);
+  grunt.registerTask('test', [
+    'jshint',
+    'clean',
+    
+    'periodic',
+    'periodic',
+    
+    'FakeDate:61',
+    'periodic',
+
+    'FakeDate:1441',
+    'periodic',
+
+    'FakeDate:10081',
+    'periodic',
+
+    'FakeDate:46080',
+    'periodic',
+
+    'FakeDate:552960',
+    'periodic',
+
+    'FakeDate',
+    'nodeunit'
+  ]);
 
   grunt.registerTask('default', ['test']);
 
+
+
+  // Test Support
 
   grunt.registerTask('TestTask', 'Test Task', function(target){
 
@@ -96,6 +128,25 @@ module.exports = function(grunt) {
     grunt.log.writeln('Test Task count: ' + count);
 
     grunt.file.write(path, count);
+
+  });
+
+
+  grunt.registerTask('FakeDate', 'Fake Date', function(minutes){
+
+    if (clock)
+    {
+      clock.restore();
+    }
+
+    if (!minutes)
+    {
+      return;
+    }
+
+    clock = sinon.useFakeTimers(new Date().getTime() + minutes*60000 );
+
+    grunt.log.writeln('Fake Date: ' + new Date().toISOString());
 
   });
 

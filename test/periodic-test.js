@@ -25,42 +25,42 @@ exports.periodic = {
 	
 	build: function(test) {
 
-		test.equal(readCount('build'), 2);
+		test.equal(readCount('build'), 7);
 
 		test.done();
 	},
 
 	hourly: function(test) {
 
-		test.equal(readCount('hourly'), 1);
+		test.equal(readCount('hourly'), 6);
 
 		test.done();
 	},
 
 	daily: function(test) {
 
-		test.equal(readCount('daily'), 1);
+		test.equal(readCount('daily'), 5);
 
 		test.done();
 	},
 
 	weekly: function(test) {
 
-		test.equal(readCount('weekly'), 1);
+		test.equal(readCount('weekly'), 4);
 
 		test.done();
 	},
 
 	monthly: function(test) {
 
-		test.equal(readCount('monthly'), 1);
+		test.equal(readCount('monthly'), 3);
 
 		test.done();
 	},
 
 	yearly: function(test) {
 
-		test.equal(readCount('yearly'), 1);
+		test.equal(readCount('yearly'), 2);
 
 		test.done();
 	},
