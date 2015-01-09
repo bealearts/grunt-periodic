@@ -1,10 +1,13 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 deploy:
   provider: npm
-  api_key: "YOUR API KEY"
+  email: david.beale@bealearts.co.uk
+  api_key:
+    secure: Z0LvijaKnCrFCcoabbY1EV3TtqcRvhXf1OVfmMgn0FOrNz+XCYV2jc7KnQxcDCRrwwLA6QNrArSNDAmjtOUCPswigy+Qw45mMWG51R9BL3AzJ+CiOwNRCKUCUQiqRFkQAgLrCT5kEc6VGzHcZ06L19d5D6431a9bnVpNDqT1V4M=
   on:
     tags: true
+    repo: bealearts/grunt-periodic
