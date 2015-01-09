@@ -9,5 +9,6 @@ deploy:
   api_key:
     secure: Z0LvijaKnCrFCcoabbY1EV3TtqcRvhXf1OVfmMgn0FOrNz+XCYV2jc7KnQxcDCRrwwLA6QNrArSNDAmjtOUCPswigy+Qw45mMWG51R9BL3AzJ+CiOwNRCKUCUQiqRFkQAgLrCT5kEc6VGzHcZ06L19d5D6431a9bnVpNDqT1V4M=
   on:
+    all_branches: true
     tags: true
     repo: bealearts/grunt-periodic
