@@ -35,7 +35,7 @@ Specifies when to run the tasks e.g. "hourly" The tasks will be executed a maxim
 
 One of: "build", "hourly", "daily", "weekly", "monthly", "yearly", "checkout"
 
-* "build" runs once a build. This is the equivalent of not using the grunt-once task.
+* "build" runs once a build. This is the equivalent of not using the grunt-periodic task.
 * "checkout" runs only once for the project. It will not be run again, unless a clean checkout of the project is made.
 
 Note that this is only the maximum time period. If the build is not run, the tasks will not be executed.
