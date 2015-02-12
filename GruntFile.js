@@ -36,6 +36,14 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     periodic: {
+      newer: {
+        when: 'newer',
+        files: [{
+          expand: true,
+          src: [ 'temp/*' ],
+        }],
+        tasks: ['TestTask:newer']
+      },
       build: {
         when: 'build',
         tasks: ['TestTask:build']
