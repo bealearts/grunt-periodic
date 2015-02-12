@@ -98,7 +98,7 @@ module.exports = function register ( grunt ) {
         if ( checkFilesPeriod( files ) ) {
           runTasks(tasks);
         } else {
-          console.log( 'No file changes detected' )
+          console.log( 'No file changes detected' );
         }
       } else if ( !lastRun || checkOutsidePeriod( lastRun, when ) ) {
         if ( lastRun || options.runFirstTime ) {
