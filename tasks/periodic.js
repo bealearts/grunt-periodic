@@ -54,11 +54,11 @@ module.exports = function register ( grunt ) {
           .src
           .forEach( function (file){
             var fileStat = fs.statSync( file ),
-                mTime = fileStat.mtime,
+                mTime = moment( fileStat.mtime ),
                 lastRun = readLastRun( file ),
-                diff = ( lastRun ? moment().diff( mTime, lastRun ) : 1 );
+                diff = ( lastRun !== null ? moment( lastRun ).diff( mTime ) : 1 );
 
-            if ( diff !== 0 ) {
+            if ( diff > 0 ) {
               ret = true;
               saveLastRun( file, mTime );
             }
