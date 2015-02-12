@@ -22,6 +22,12 @@ function readCount(target)
 
 
 exports.periodic = {
+
+	newer: function(test) {
+		test.equal(readCount('newer'), 0);
+
+		test.done();
+	},
 	
 	build: function(test) {
 
