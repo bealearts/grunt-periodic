@@ -58,7 +58,7 @@ module.exports = function register ( grunt ) {
                 lastRun = readLastRun( file ),
                 diff = ( lastRun !== null ? moment( lastRun ).diff( mTime ) : 1 );
 
-            if ( diff > 0 ) {
+            if ( diff < 0 ) {
               ret = true;
               saveLastRun( file, mTime );
             }
