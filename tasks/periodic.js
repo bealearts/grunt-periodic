@@ -90,13 +90,15 @@ module.exports = function register ( grunt ) {
 
       if (lastRun) {
         grunt.log.writeln( 'Last ran ' + moment( lastRun ).fromNow() );
-      } else {
+      } else if ( when !== 'newer' ) {
         grunt.log.writeln( 'No last run time found' );
       }
       
       if ( when === 'newer' ) {
         if ( checkFilesPeriod( files ) ) {
           runTasks(tasks);
+        } else {
+          console.log( 'No file changes detected' )
         }
       } else if ( !lastRun || checkOutsidePeriod( lastRun, when ) ) {
         if ( lastRun || options.runFirstTime ) {
