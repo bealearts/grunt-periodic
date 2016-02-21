@@ -1,7 +1,7 @@
 {
   "name": "grunt-periodic",
   "description": "Grunt task to run other tasks once a given time period - e.g. once a day, once an hour etc.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/bealearts/grunt-periodic",
   "author": {
     "name": "David Beale",
