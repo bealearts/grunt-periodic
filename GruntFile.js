@@ -70,6 +70,14 @@ module.exports = function(grunt) {
       checkout: {
         when: 'checkout',
         tasks: ['TestTask:checkout']
+      },
+      newer: {
+        when: 'newer',
+        files: [{
+          expand: true,
+          src: [ './temp/*.txt' ],
+        }],
+        tasks: ['TestTask:newer']
       }
     },
 
@@ -111,7 +119,15 @@ module.exports = function(grunt) {
     'FakeDate:552960',
     'periodic',
 
-    'FakeDate',
+    'ModFile',
+    'periodic',
+
+    'ModFile',
+    'periodic',
+
+    'periodic',
+
+    'FakeDate', // Restore clock
     'nodeunit'
   ]);
 
@@ -121,7 +137,7 @@ module.exports = function(grunt) {
 
   // Test Support
 
-  grunt.registerTask('TestTask', 'Test Task', function(target){
+  grunt.registerTask('TestTask', 'Test Task', function(target) {
 
     var count = 1;
     var path = './temp/' + target;
@@ -139,7 +155,7 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('FakeDate', 'Fake Date', function(minutes){
+  grunt.registerTask('FakeDate', 'Fake Date', function(minutes) {
 
     if (clock)
     {
@@ -154,6 +170,17 @@ module.exports = function(grunt) {
     clock = sinon.useFakeTimers(new Date().getTime() + minutes*60000 );
 
     grunt.log.writeln('Fake Date: ' + new Date().toISOString());
+
+  });
+
+
+  grunt.registerTask('ModFile', 'Modifiy a File', function() {
+
+    var filename = 'afile.txt';
+
+    grunt.file.write('./temp/' + filename, new Date().toISOString());
+
+    grunt.log.writeln('Modified File: ' + filename);
 
   });
 

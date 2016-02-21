@@ -79,4 +79,9 @@ exports.periodic = {
 		test.done();
 	},						
 
+	newer: function(test) {
+		test.equal(readCount('newer'), 2);
+
+		test.done();
+	},
 };
