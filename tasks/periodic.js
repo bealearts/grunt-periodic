@@ -129,16 +129,13 @@ module.exports = function register(grunt)
 
     function checkFilesNewer(lastRun, files) 
     {
-        files.forEach( function(availableFiles) {
+        return files.some( function(availableFiles) {
 
-            availableFiles.src.forEach( function(file) {
+            return availableFiles.src.some( function(file) {
 
                 var fileStat = fs.statSync(file);
                 var mTime = moment(fileStat.mtime);
                 var diff = ( lastRun !== null ? moment(lastRun).diff(mTime) : 1 );
-
-
-                grunt.log.writeln(file, diff);
 
                 if ( diff < 0 ) 
                 {
@@ -148,9 +145,6 @@ module.exports = function register(grunt)
             });
         
         });
- 
- 
-        return false;
     }
 
 
