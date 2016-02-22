@@ -2,6 +2,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var fs = require('fs');
 
 
 module.exports = function(grunt) {
@@ -36,6 +37,14 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     periodic: {
+      newer: {
+        when: 'newer',
+        files: [{
+          expand: true,
+          src: [ './temp/*.txt' ],
+        }],
+        tasks: ['TestTask:newer']
+      },
       build: {
         when: 'build',
         tasks: ['TestTask:build']
@@ -88,6 +97,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
+
   // run period tasks twice to test results
   grunt.registerTask('test', [
     'jshint',
@@ -111,7 +121,13 @@ module.exports = function(grunt) {
     'FakeDate:552960',
     'periodic',
 
-    'FakeDate',
+    'FakeDate', // Restore clock
+
+    'ModFile',
+    'periodic',
+
+    'periodic',    
+
     'nodeunit'
   ]);
 
@@ -119,9 +135,29 @@ module.exports = function(grunt) {
 
 
 
+  // run period tasks twice to test results
+  grunt.registerTask('exp', [
+    'jshint',
+    'clean',
+
+    'periodic',
+    'periodic',
+
+    'FakeDate:61',
+    'periodic',    
+
+    'FakeDate', // Restore clock
+
+    'ModFile',
+    'periodic',
+
+    'nodeunit'
+  ]);
+
+
   // Test Support
 
-  grunt.registerTask('TestTask', 'Test Task', function(target){
+  grunt.registerTask('TestTask', 'Test Task', function(target) {
 
     var count = 1;
     var path = './temp/' + target;
@@ -139,7 +175,7 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('FakeDate', 'Fake Date', function(minutes){
+  grunt.registerTask('FakeDate', 'Fake Date', function(minutes) {
 
     if (clock)
     {
@@ -154,6 +190,21 @@ module.exports = function(grunt) {
     clock = sinon.useFakeTimers(new Date().getTime() + minutes*60000 );
 
     grunt.log.writeln('Fake Date: ' + new Date().toISOString());
+
+  });
+
+
+  grunt.registerTask('ModFile', 'Modifiy a File', function() {
+
+    var filename = 'afile.txt';
+
+    var done = this.async();
+
+    setTimeout(function(){
+      grunt.file.write('./temp/' + filename, new Date().toISOString());
+      grunt.log.writeln('Modified File done');
+      done();
+    }, 2000);
 
   });
 

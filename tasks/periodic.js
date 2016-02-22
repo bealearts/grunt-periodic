@@ -2,6 +2,7 @@
 'use strict';
 
 var moment = require('moment');
+var fs = require('fs');
 
 var taskDataFolder = './.grunt/grunt-periodic/';
 
@@ -21,6 +22,7 @@ module.exports = function register(grunt)
         
         var when = this.data.when;
         var tasks = this.data.tasks;
+        var files = this.files;
         
         if (!Array.isArray(tasks))
         {
@@ -32,7 +34,7 @@ module.exports = function register(grunt)
         {
             grunt.fail.fatal('periodic property "when" is required');
         }
-        else if (when !== 'checkout' && !mesurements.hasOwnProperty(when))
+        else if (when !== 'checkout' && when !== 'newer' && !mesurements.hasOwnProperty(when))
         {
             grunt.fail.fatal(when + ' is not a valid value for periodic property "when"');
         }
@@ -59,21 +61,40 @@ module.exports = function register(grunt)
         {    
             grunt.log.writeln('No last run time found');
         }
-        
-        if (!lastRun || checkOutsidePeriod(lastRun, when))
-        {
-            if (lastRun || options.runFirstTime)
-            {
-                runTasks(tasks);
-            }
 
-            saveLastRun(this.target);
+
+        if (when === 'newer')
+        {
+            if (!lastRun || checkFilesNewer(lastRun, files)) 
+            {
+                if (lastRun || options.runFirstTime)
+                {
+                    runTasks(tasks);
+                }
+
+                saveLastRun(this.target);
+            } 
+            else 
+            {
+                grunt.log.writeln('No file changes detected, skipping tasks: ' + tasks.toString());
+            }
         }
         else
-        {
-            grunt.log.writeln('Period [' + when + '] not reached, skipping tasks: ' + tasks.toString());
+        {  
+            if (!lastRun || checkOutsidePeriod(lastRun, when))
+            {
+                if (lastRun || options.runFirstTime)
+                {
+                    runTasks(tasks);
+                }
+
+                saveLastRun(this.target);
+            }
+            else
+            {
+                grunt.log.writeln('Period [' + when + '] not reached, skipping tasks: ' + tasks.toString());
+            }
         }
-        
     });
     
     
@@ -105,6 +126,28 @@ module.exports = function register(grunt)
         return (diff !== 0);
     }
     
+
+    function checkFilesNewer(lastRun, files) 
+    {
+        return files.some( function(availableFiles) {
+
+            return availableFiles.src.some( function(file) {
+
+                var fileStat = fs.statSync(file);
+                var mTime = moment(fileStat.mtime);
+                var diff = ( lastRun !== null ? moment(lastRun).diff(mTime) : 1 );
+
+                if ( diff < 0 ) 
+                {
+                    return true;
+                }
+
+            });
+        
+        });
+    }
+
+
     
     function runTasks(tasks)
     {
@@ -116,8 +159,7 @@ module.exports = function register(grunt)
     
     function saveLastRun(target)
     {
-        var now = new Date();
-        grunt.file.write(taskDataFolder + target, now.toISOString());
+        grunt.file.write(taskDataFolder + target, new Date().toISOString());
     }
 
 

@@ -33,10 +33,11 @@ Type: `String`
 
 Specifies when to run the tasks e.g. "hourly" The tasks will be executed a maximum of once every hour.
 
-One of: "build", "hourly", "daily", "weekly", "monthly", "yearly", "checkout"
+One of: "build", "hourly", "daily", "weekly", "monthly", "yearly", "checkout", "newer"
 
 * "build" runs once a build. This is the equivalent of not using the grunt-periodic task.
 * "checkout" runs only once for the project. It will not be run again, unless a clean checkout of the project is made.
+* "newer" takes an extra `files` glob and runs if any of the matching files are modified. Note: this is not a `watch` feature.
 
 Note that this is only the maximum time period. If the build is not run, the tasks will not be executed.
 
@@ -44,6 +45,14 @@ Note that this is only the maximum time period. If the build is not run, the tas
 Type: `Array`
 
 A list of tasks to execute. Tasks may be specified according to the grunt [Task Alias](http://gruntjs.com/creating-tasks#alias-tasks) guide.
+
+#### files, src
+Type: 'Grunt File Format'
+
+Any of the grunt file definitions http://gruntjs.com/configuring-tasks#files
+
+Only used by the `newer` type, specfies the files to watch for modification.
+
 
 ### Options
 
