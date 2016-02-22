@@ -2,6 +2,7 @@
 'use strict';
 
 var sinon = require('sinon');
+var fs = require('fs');
 
 
 module.exports = function(grunt) {
@@ -36,6 +37,14 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     periodic: {
+      newer: {
+        when: 'newer',
+        files: [{
+          expand: true,
+          src: [ './temp/*.txt' ],
+        }],
+        tasks: ['TestTask:newer']
+      },
       build: {
         when: 'build',
         tasks: ['TestTask:build']
@@ -70,14 +79,6 @@ module.exports = function(grunt) {
       checkout: {
         when: 'checkout',
         tasks: ['TestTask:checkout']
-      },
-      newer: {
-        when: 'newer',
-        files: [{
-          expand: true,
-          src: [ './temp/*.txt' ],
-        }],
-        tasks: ['TestTask:newer']
       }
     },
 
@@ -95,6 +96,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+
 
   // run period tasks twice to test results
   grunt.registerTask('test', [
@@ -119,20 +121,38 @@ module.exports = function(grunt) {
     'FakeDate:552960',
     'periodic',
 
-    'ModFile',
-    'periodic',
-
-    'ModFile',
-    'periodic',
-
-    'periodic',
-
     'FakeDate', // Restore clock
+
+    'ModFile',
+    'periodic',
+
+    'periodic',    
+
     'nodeunit'
   ]);
 
   grunt.registerTask('default', ['test']);
 
+
+
+  // run period tasks twice to test results
+  grunt.registerTask('exp', [
+    'jshint',
+    'clean',
+
+    'periodic',
+    'periodic',
+
+    'FakeDate:61',
+    'periodic',    
+
+    'FakeDate', // Restore clock
+
+    'ModFile',
+    'periodic',
+
+    'nodeunit'
+  ]);
 
 
   // Test Support
@@ -178,9 +198,13 @@ module.exports = function(grunt) {
 
     var filename = 'afile.txt';
 
-    grunt.file.write('./temp/' + filename, new Date().toISOString());
+    var done = this.async();
 
-    grunt.log.writeln('Modified File: ' + filename);
+    setTimeout(function(){
+      grunt.file.write('./temp/' + filename, new Date().toISOString());
+      grunt.log.writeln('Modified File done');
+      done();
+    }, 2000);
 
   });
 
